@@ -1,0 +1,18 @@
+name: Build SkrillxOptimizer EXE
+on:
+  push:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install psutil pyinstaller
+      - run: pyinstaller --onefile --noconsole --uac-admin --icon icon.ico --name SkrillxOptimizer SkrillxOptimizer.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: SkrillxOptimizer-EXE
+          path: dist/SkrillxOptimizer.exe
